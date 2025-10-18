@@ -7,6 +7,7 @@ class MyImage {
   static const String docCard = 'assets/images/doctor-card.svg';
   static const String onsearch = 'assets/images/no-search.svg';
   static const String noScheduled = 'assets/images/no_scheduled.svg';
+  static const String welcome = 'assets/images/welcome-bg.png';
   
   List<String> onboeardingImages = [
     'assets/images/on1.svg',

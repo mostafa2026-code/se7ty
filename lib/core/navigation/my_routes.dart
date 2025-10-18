@@ -15,7 +15,7 @@ class MyRoutes {
   static const String onboarding = '/onboarding';
   static const String terms = '/terms';
   static const String privacy = '/privacy';
-  final GoRouter myroutes = GoRouter(
+  static final GoRouter myroutes = GoRouter(
     initialLocation: splash,
     routes: [
       GoRoute(path: splash, builder: (context, state) => const SplashScreen()),

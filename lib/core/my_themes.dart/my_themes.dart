@@ -11,8 +11,12 @@ class MyThemes {
     lightTheme,
     darkTheme,
   ];
+  
   static ThemeData mylightTheme (){
     return ThemeData(
+      textTheme: TextTheme(
+
+      ),
       primarySwatch: Colors.deepPurple,
       fontFamily: 'Cairo',
       inputDecorationTheme: 

@@ -4,6 +4,7 @@ import 'package:se7ty/core/utils/my_colors.dart';
 class MyStyles {
   static const String cairoFont = 'Cairo';
   static const String cairoFontBold = 'Cairo-Bold';
+  
 
   // ---------- PRIMARY ----------
   static TextStyle n8primary() => const TextStyle(fontSize: 8, color: MyColors.primary, fontWeight: FontWeight.normal);
