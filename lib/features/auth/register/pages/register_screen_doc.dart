@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:se7ty/component/main_bottom.dart';
 
-import 'package:se7ty/features/auth/login/pages/login.dart';
-
 class RegisterScreenDoc extends StatelessWidget {
   final String type;
   const RegisterScreenDoc({super.key, required this.type});
@@ -15,12 +13,12 @@ class RegisterScreenDoc extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(8),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 50, child: LogoSVg()),
               Gap(15),
-              Text("سجل حساب جديد ك ${type} "),
+              Text("سجل حساب جديد ك $type "),
               TextFormField(
                 decoration: InputDecoration(
                   hintText: "الاسم ",

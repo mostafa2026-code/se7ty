@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:se7ty/component/main_bottom.dart';
 import 'package:se7ty/core/utils/my_colors.dart';
 import 'package:intl/intl.dart';
-import 'package:se7ty/features/auth/login/pages/login.dart';
 
 class DoctorRegisterComplete extends StatelessWidget {
   const DoctorRegisterComplete({super.key});
@@ -21,7 +20,7 @@ class DoctorRegisterComplete extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(8),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
