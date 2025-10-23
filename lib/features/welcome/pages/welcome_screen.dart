@@ -14,7 +14,6 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Current Language: ${context.locale.languageCode}');
     return Scaffold(
       body: Stack(
         children: [
@@ -100,7 +99,7 @@ class LoginAsBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {

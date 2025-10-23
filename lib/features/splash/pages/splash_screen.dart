@@ -16,6 +16,7 @@ class _SplashscreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
+      // ignore: use_build_context_synchronously
       pushreplace(context, MyRoutes.onboarding, null);
     });
   }
