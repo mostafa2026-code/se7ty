@@ -9,7 +9,7 @@ class MyImage {
   static const String noScheduled = 'assets/images/no_scheduled.svg';
   static const String welcome = 'assets/images/welcome-bg.png';
   
-  List<String> onboeardingImages = [
+  static List<String> onboeardingImages = [
     'assets/images/on1.svg',
     'assets/images/on2.svg',
     'assets/images/on3.svg',

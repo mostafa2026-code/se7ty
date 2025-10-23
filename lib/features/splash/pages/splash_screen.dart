@@ -16,7 +16,7 @@ class _SplashscreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-      pushreplace(context, MyRoutes.welcome, null);
+      pushreplace(context, MyRoutes.onboarding, null);
     });
   }
 

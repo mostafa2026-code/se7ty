@@ -12,7 +12,7 @@ void main() async {
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: "assets/translation",
       fallbackLocale: const Locale('en'),
-      startLocale: const Locale('ar'), // ابدأ بالعربي
+      startLocale: const Locale('ar'), 
       child: const Se7ty(),
     ),
   );
@@ -45,7 +45,6 @@ class Se7ty extends StatelessWidget {
   }
 }
 
-// Helper function لو احتجتها في أي مكان تاني
 bool isArabic(BuildContext context) {
   return context.locale.languageCode == "ar";
 }
