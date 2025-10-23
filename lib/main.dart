@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:se7ty/core/my_themes.dart/my_themes.dart';
-
-import 'package:se7ty/features/auth/register/pages/doctor_register.dart';
+import 'package:se7ty/features/auth/login/pages/login.dart';
+import 'package:se7ty/features/auth/register/pages/register_screen_doc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +27,7 @@ class Se7ty extends StatelessWidget {
     // هنا المهم: نستخدم context.locale عشان يعمل rebuild
 
     return MaterialApp(
-      home: DoctorRegisterScreen(),
+      home: LoginScreen(type: "مريض"),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,

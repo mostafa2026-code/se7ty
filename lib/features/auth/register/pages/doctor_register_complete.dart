@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:se7ty/component/main_bottom.dart';
 import 'package:se7ty/core/utils/my_colors.dart';
 import 'package:intl/intl.dart';
 import 'package:se7ty/features/auth/login/pages/login.dart';
 
-class DoctorRegisterScreen extends StatelessWidget {
-  const DoctorRegisterScreen({super.key});
+class DoctorRegisterComplete extends StatelessWidget {
+  const DoctorRegisterComplete({super.key});
 
   @override
   Widget build(BuildContext context) {

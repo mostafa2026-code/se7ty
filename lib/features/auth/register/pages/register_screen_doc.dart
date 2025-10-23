@@ -4,9 +4,9 @@ import 'package:se7ty/component/main_bottom.dart';
 
 import 'package:se7ty/features/auth/login/pages/login.dart';
 
-class LoginScreen extends StatelessWidget {
+class RegisterScreenDoc extends StatelessWidget {
   final String type;
-  const LoginScreen({super.key, required this.type});
+  const RegisterScreenDoc({super.key, required this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               SizedBox(height: 50, child: LogoSVg()),
               Gap(15),
-              Text("سجل الدخول ك $type "),
+              Text("سجل حساب جديد ك ${type} "),
               TextFormField(
                 decoration: InputDecoration(
                   hintText: "الاسم ",
@@ -47,8 +47,8 @@ class LoginScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("ليس لدي حساب ؟"),
-                  TextButton(onPressed: () {}, child: Text(" سجل الان ")),
+                  Text("لدي حساب ؟"),
+                  TextButton(onPressed: () {}, child: Text("سجل الدخول")),
                 ],
               ),
             ],
