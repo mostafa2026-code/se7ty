@@ -45,7 +45,7 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
             const Gap(15),
-            MainBottom( title: "تسجيل الدخول",),
+            MainBottom(title: "تسجيل الدخول"),
             const Gap(15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -74,8 +74,7 @@ class MainBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: MyColors.primary,
-      decoration: BoxDecoration(),
+      decoration: BoxDecoration(color: MyColors.primary),
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {},
