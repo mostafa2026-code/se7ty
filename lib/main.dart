@@ -2,7 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:se7ty/core/my_themes.dart/my_themes.dart';
-
+import 'package:se7ty/features/booking/pages/booking_screen.dart';
+import 'package:se7ty/features/home/pages/home_screen.dart';
+import 'package:se7ty/features/profile/pages/profile_screen.dart';
+import 'package:se7ty/features/search/page/search_screen.dart';
 
 import 'package:se7ty/features/setting/pages/setting_screen.dart';
 
@@ -28,7 +31,7 @@ class Se7ty extends StatelessWidget {
     // هنا المهم: نستخدم context.locale عشان يعمل rebuild
 
     return MaterialApp(
-      home: SettingScreen(),
+      home: ProfileScreen(),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,

@@ -20,7 +20,6 @@ class MyThemes {
         ),
       ),
       listTileTheme: ListTileThemeData(
-        
         tileColor: Color(0xffe6eef8),
         iconColor: MyColors.primary,
         titleTextStyle: TextStyle(
@@ -34,27 +33,24 @@ class MyThemes {
       primarySwatch: Colors.deepPurple,
       fontFamily: 'Cairo',
       inputDecorationTheme: InputDecorationTheme(
-        hintStyle: TextStyle(fontSize: 16, color: MyColors.grey),
-        labelStyle: TextStyle(fontSize: 16, color: MyColors.grey),
-        focusedBorder: UnderlineInputBorder(
+        filled: true,
+        fillColor: Color(0xffe6eef8),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: MyColors.primary),
         ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: MyColors.grey),
-        ),
-        errorBorder: UnderlineInputBorder(
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: Colors.red),
         ),
-        focusedErrorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
-        ),
-        disabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: MyColors.grey),
-        ),
-        border: UnderlineInputBorder(
-          borderSide: BorderSide(color: MyColors.grey),
-        ),
-        errorStyle: TextStyle(fontSize: 16, color: Colors.red),
       ),
     );
   }
