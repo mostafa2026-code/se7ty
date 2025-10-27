@@ -25,6 +25,8 @@ class MyRoutes {
       GoRoute(path: welcome, builder: (context, state) => const WelcomeScreen()),
       GoRoute(path: onboarding, builder: (context, state) => const OnboardingScreen()),
       GoRoute(path: profile, builder: (context, state) => const ProfileScreen()),
+      GoRoute(path: login, builder: (context, state) => const LoginScreen()),
+      GoRoute(path: register, builder: (context, state) => const RegisterScreen()),
     
     ],
   );

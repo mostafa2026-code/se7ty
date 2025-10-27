@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:se7ty/component/main_bottom.dart';
 import 'package:se7ty/core/navigation/my_navigation.dart';
 import 'package:se7ty/core/navigation/my_routes.dart';
-import 'package:se7ty/core/utils/my_image.dart';
 
-import '../../../component/logo.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
