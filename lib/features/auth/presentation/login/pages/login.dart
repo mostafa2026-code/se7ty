@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:se7ty/component/main_bottom.dart';
 
 class LoginScreen extends StatelessWidget {
-  final String type;
+  final Enum type;
   const LoginScreen({super.key, required this.type});
 
   @override
@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 50, child: LogoSVg()),
+              LogoImage(),
               Gap(15),
               Text("سجل الدخول ك $type "),
               TextFormField(

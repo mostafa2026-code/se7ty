@@ -16,7 +16,7 @@ class RegisterScreenDoc extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 50, child: LogoSVg()),
+              Center(child: LogoImage()),
               Gap(15),
               Text("سجل حساب جديد ك $type "),
               TextFormField(

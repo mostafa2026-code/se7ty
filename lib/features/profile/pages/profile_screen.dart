@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:se7ty/core/utils/my_colors.dart';
+import 'package:se7ty/core/utils/my_image.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -23,9 +24,7 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 100,
-                        backgroundImage: AssetImage(
-                          "assets/images/Screenshot 2025-10-24 034329.png",
-                        ),
+                        backgroundImage: AssetImage(MyImage.docCat),
                       ),
                       Gap(20),
                       Expanded(
@@ -34,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "شلة المصطفيات ",
+                              "الدكتور البسة",
                               style: TextStyle(
                                 color: MyColors.primary,
                                 fontSize: 20,
@@ -94,7 +93,7 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             Icon(Icons.phone, color: Colors.blue),
                             SizedBox(width: 8),
-                            Text("01092563383"),
+                            Text("95236896893698563623"),
                           ],
                         ),
                       ],
@@ -105,7 +104,7 @@ class ProfileScreen extends StatelessWidget {
                   const Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      "جولاتي",
+                      "حجوزات",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

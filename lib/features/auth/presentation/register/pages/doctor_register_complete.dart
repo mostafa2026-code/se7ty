@@ -110,10 +110,12 @@ class DoctorRegisterComplete extends StatelessWidget {
                   ),
                 ],
               ),
+              Gap(15),
 
               TextFormField(
                 decoration: InputDecoration(hintText: "رقم الهاتف 1"),
               ),
+              Gap(15),
               TextFormField(
                 decoration: InputDecoration(hintText: "رقم الهاتف 2"),
               ),
