@@ -9,6 +9,17 @@ class MyThemes {
 
   static ThemeData mylightTheme() {
     return ThemeData(
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: MyColors.primary,
+          textStyle: TextStyle(
+            color: MyColors.primary,
+            fontSize: 16,
+            fontFamily: "Cairo",
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
       appBarTheme: AppBarTheme(
         centerTitle: true,
         backgroundColor: MyColors.primary,
@@ -33,6 +44,7 @@ class MyThemes {
       primarySwatch: Colors.deepPurple,
       fontFamily: 'Cairo',
       inputDecorationTheme: InputDecorationTheme(
+        contentPadding: EdgeInsets.all(12),
         filled: true,
         fillColor: Color(0xffe6eef8),
         errorBorder: OutlineInputBorder(

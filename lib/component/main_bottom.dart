@@ -8,24 +8,41 @@ class LogoImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(MyImage.se7ty, height: 100, fit: BoxFit.cover);
+    return Image.asset(
+      MyImage.se7ty,
+      height: MediaQuery.of(context).size.height * .3,
+      fit: BoxFit.cover,
+    );
   }
 }
 
 class MainBottom extends StatelessWidget {
   final String title;
-  const MainBottom({super.key, required this.title});
+  final double? height;
+  final double width;
+  final VoidCallback? onPressed;
+  final Color color;
+
+  const MainBottom({
+    super.key,
+    required this.title,
+    this.height = 45,
+    this.width = double.infinity,
+    required this.onPressed,
+
+    this.color = MyColors.primary,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: MyColors.primary,
+          backgroundColor: color,
 
-          maximumSize: const Size(double.infinity, 50),
+          maximumSize: Size(width, 50),
         ),
         child: Text(
           title,

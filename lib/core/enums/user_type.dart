@@ -1,5 +1,6 @@
-enum UserType { doctor, patient }
+enum UserType { Doctor, Patient }
 
 enum Specialization{
-  
+
+  InternalMedicine
 }

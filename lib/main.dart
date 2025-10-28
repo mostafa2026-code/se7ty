@@ -1,18 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:se7ty/core/enums/user_type.dart';
 import 'dart:ui' as ui;
 import 'package:se7ty/core/my_themes.dart/my_themes.dart';
-import 'package:se7ty/features/auth/presentation/login/pages/login.dart';
-import 'package:se7ty/features/auth/presentation/register/pages/doctor_register_complete.dart';
-import 'package:se7ty/features/auth/presentation/register/pages/register_screen_doc.dart';
-import 'package:se7ty/features/booking/pages/booking_screen.dart';
-import 'package:se7ty/features/home/pages/home_screen.dart';
-import 'package:se7ty/features/profile/pages/profile_screen.dart';
-import 'package:se7ty/features/search/page/search_screen.dart';
+import 'package:se7ty/core/navigation/my_routes.dart';
 
-import 'package:se7ty/features/setting/pages/setting_screen.dart';
-import 'package:se7ty/features/splash/pages/splash_screen.dart';
-import 'package:se7ty/features/welcome/pages/welcome_screen.dart';
+import 'package:se7ty/features/auth/presentation/register/pages/register_screen_doc.dart';
+import 'package:se7ty/features/onboarding/pages/onboarding_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,8 +29,8 @@ class Se7ty extends StatelessWidget {
   Widget build(BuildContext context) {
     // هنا المهم: نستخدم context.locale عشان يعمل rebuild
 
-    return MaterialApp(
-      home: RegisterScreenDoc(type: 'طبيب'),
+    return MaterialApp.router(
+      routerConfig: MyRoutes.myroutes,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,

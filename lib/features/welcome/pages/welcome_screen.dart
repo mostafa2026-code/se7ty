@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:se7ty/core/enums/user_type.dart';
 import 'package:se7ty/core/navigation/my_navigation.dart';
 import 'package:se7ty/core/navigation/my_routes.dart';
 import 'package:se7ty/core/utils/my_image.dart';
@@ -70,12 +71,12 @@ class WelcomeScreen extends StatelessWidget {
                       Text("login_as".tr(), style: MyStyles.b16primary()),
                       Gap(20),
                       LoginAsBottom(
-                        route: MyRoutes.login,
+                        type: UserType.Doctor,
                         title: "doctor".tr(),
                       ),
                       Gap(10),
                       LoginAsBottom(
-                        route: MyRoutes.login,
+                        type: UserType.Patient,
                         title: "patient".tr(),
                       ),
                     ],
@@ -92,10 +93,10 @@ class WelcomeScreen extends StatelessWidget {
 }
 
 class LoginAsBottom extends StatelessWidget {
-  final String route;
+  final Enum type;
   final String title;
 
-  const LoginAsBottom({super.key, required this.route, required this.title});
+  const LoginAsBottom({super.key, required this.title, required this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +104,7 @@ class LoginAsBottom extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          push(context, route, null);
+          push(context, MyRoutes.login, type);
         },
 
         style: ElevatedButton.styleFrom(

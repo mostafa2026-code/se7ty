@@ -125,7 +125,7 @@ class DoctorRegisterComplete extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(8),
-        child: MainBottom(title: "التالي"),
+        child: MainBottom(title: "التالي", onPressed: () {  },),
       ),
     );
   }
