@@ -1,16 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:se7ty/core/enums/user_type.dart';
+
 import 'dart:ui' as ui;
 import 'package:se7ty/core/my_themes.dart/my_themes.dart';
 import 'package:se7ty/core/navigation/my_routes.dart';
+import 'package:se7ty/core/services/firebase/fire_helper.dart';
 
-import 'package:se7ty/features/auth/presentation/register/pages/register_screen_doc.dart';
-import 'package:se7ty/features/onboarding/pages/onboarding_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await FireHelper.init();
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
