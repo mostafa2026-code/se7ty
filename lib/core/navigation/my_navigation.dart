@@ -9,7 +9,7 @@ void pushreplace(BuildContext context, String to , Object? extra) {
   context.pushReplacement( to, extra: extra);
   
 }
-void pop(BuildContext context, String to , Object? extra) {
+void pop(BuildContext context, ) {
   context.pop();
   
 }

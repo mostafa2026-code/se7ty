@@ -10,6 +10,9 @@ class MyImage {
   static const String welcome = 'assets/images/welcome-bg.png';
   static const String docCat = 'assets/images/cat.png';
   static const String se7ty = 'assets/images/logopng.png';
+  static const String loadingLottie = 'assets/icons/loading.json';
+
+
 
 
   static List<String> onboeardingImages = [

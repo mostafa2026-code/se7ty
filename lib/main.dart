@@ -1,16 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:ui' as ui;
 import 'package:se7ty/core/my_themes.dart/my_themes.dart';
 import 'package:se7ty/core/navigation/my_routes.dart';
-import 'package:se7ty/core/services/firebase/fire_helper.dart';
+import 'package:se7ty/firebase_options.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await FireHelper.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],

@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +19,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
   void register() async {
     try {
-      if (!regKey.currentState!.validate()) {
+      if (regKey.currentState!.validate()) {
         emit(AuthLoading());
         UserCredential userCredential = await FireHelper.auth
             .createUserWithEmailAndPassword(
@@ -56,7 +55,7 @@ class AuthCubit extends Cubit<AuthStates> {
     } on FirebaseAuthException catch (e) {
       emit(AuthFailure(e.message ?? "An unknown error occurred"));
     } catch (e) {
-      emit(AuthFailure("An unknown error occurred"));
+      emit(AuthFailure(e.toString()));
     }
   }
 }
