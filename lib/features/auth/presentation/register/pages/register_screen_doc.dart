@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:lottie/lottie.dart';
 import 'package:se7ty/component/main_bottom.dart';
 import 'package:se7ty/core/enums/user_type.dart';
 import 'package:se7ty/core/functions/reg_exp.dart';
@@ -36,7 +35,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       listener: (context, state) {
         if (state is AuthSuccess) {
           pop(context);
-          pushreplace(context, MyRoutes.home, null);
+          if (widget.type == UserType.Doctor) {
+            pushreplace(context, MyRoutes.completedoctor, null);
+          } else {
+            pushreplace(context, MyRoutes.home, null);
+          }
         } else if (state is AuthFailure) {
           pop(context);
           ScaffoldMessenger.of(
@@ -100,8 +103,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'الرجاء ادخال كلمة المرور ';
-                      } else if (MyRegExp.isValidPassword(value) == false) {
-                        return 'الرجاء ادخال كلمة مرور صحيحة ';
+                      } else if (value.length < 6) {
+                        return 'كلمة المرور يجب ان تكون اكثر من 6 احرف ';
                       }
                       return null;
                     },
@@ -118,7 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   MainBottom(
                     title: "تسجيل حساب ",
                     onPressed: () {
-                      cubit.register();
+                      cubit.register(widget.type);
                     },
                   ),
                   Gap(15),

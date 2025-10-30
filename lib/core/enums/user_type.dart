@@ -4,3 +4,10 @@ enum Specialization{
 
   InternalMedicine
 }
+
+
+enum Gender{
+
+  Male,
+  Female
+}

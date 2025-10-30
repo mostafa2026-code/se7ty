@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     MainBottom(
                       title: "  تشجيل الدخول  ",
                       onPressed: () {
-                        cubit.login();
+                        cubit.login(widget.type);
                       },
                     ),
                     Gap(15),

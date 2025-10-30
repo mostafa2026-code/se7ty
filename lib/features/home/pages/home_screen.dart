@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:se7ty/core/services/shared/shared_pref.dart';
 import 'package:se7ty/core/utils/my_colors.dart';
 import 'package:se7ty/core/utils/my_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,6 +14,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xfffeffff),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Color(0xfffeffff),
         title: Text("صحتي"),
         actions: [
@@ -43,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(fontSize: 16, color: MyColors.black),
                       ),
                       Text(
-                        "مصطفى ",
+                       "mostafa",
                         style: TextStyle(fontSize: 16, color: MyColors.primary),
                       ),
                     ],

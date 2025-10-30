@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:se7ty/core/my_themes.dart/my_themes.dart';
 import 'package:se7ty/core/navigation/my_routes.dart';
+import 'package:se7ty/core/services/shared/shared_pref.dart';
 import 'package:se7ty/firebase_options.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  // SharedPref().init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
