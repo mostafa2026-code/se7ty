@@ -22,6 +22,9 @@ class FireHelper {
   static saveToFirestoreDoctoe(DoctorsModel model, String uid) async {
     await doctorsCollection.doc(uid).set(model.toMap());
   }
+  static updateFirestoreDoctoe(DoctorsModel model, String uid) async {
+    await doctorsCollection.doc(uid).update(model.toMap());
+  }
 
   static saveToFirestorePatient(PatientModel model, String uid) async {
     await patientsCollection.doc(uid).set(model.toMap());

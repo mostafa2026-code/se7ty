@@ -9,7 +9,9 @@ class DoctorsModel {
   final String? address;
   final String? profileImage;
   final String? specialization;
-  final String? experience;
+  final String? fromhour;
+  final String? tohour;
+
   final String? about;
   final String? degree;
   final String? hospital;
@@ -21,20 +23,21 @@ class DoctorsModel {
     required this.name,
     required this.email,
     required this.password,
-     this.phone,
+    this.phone,
     required this.id,
     this.age,
-     this.gender,
+    this.gender,
     this.address,
     this.profileImage,
-     this.specialization,
-     this.experience,
-    this.about,
-     this.degree,
-     this.hospital,
-    this.location,
+    this.specialization,
+    required this.about,
+    this.degree,
+    this.hospital,
+    required this.location,
     this.fees,
     this.certification,
+    required this.fromhour,
+    required this.tohour,
   });
 
   Map<String, dynamic> toMap() {
@@ -49,13 +52,14 @@ class DoctorsModel {
       'address': address,
       'profileImage': profileImage,
       'specialization': specialization,
-      'experience': experience,
       'about': about,
       'degree': degree,
       'hospital': hospital,
       'location': location,
       'fees': fees,
       'certification': certification,
+      'fromhour': fromhour,
+      'tohour': tohour,
     };
   }
 
@@ -71,13 +75,14 @@ class DoctorsModel {
       address: map['address'],
       profileImage: map['profileImage'],
       specialization: map['specialization'],
-      experience: map['experience'],
       about: map['about'],
       degree: map['degree'],
       hospital: map['hospital'],
       location: map['location'],
       fees: map['fees'],
       certification: List<String>.from(map['certification']),
+      fromhour: map['fromhour'],
+      tohour: map['tohour'],
     );
   }
 
@@ -94,7 +99,8 @@ class DoctorsModel {
     String? specialization,
     String? experience,
     String? about,
-
+    String? fromhour,
+    String? tohour,
     String? degree,
     String? hospital,
     String? location,
@@ -112,13 +118,14 @@ class DoctorsModel {
       address: address ?? this.address,
       profileImage: profileImage ?? this.profileImage,
       specialization: specialization ?? this.specialization,
-      experience: experience ?? this.experience,
       about: about ?? this.about,
       degree: degree ?? this.degree,
       hospital: hospital ?? this.hospital,
       location: location ?? this.location,
       fees: fees ?? this.fees,
       certification: certification ?? this.certification,
+      fromhour: fromhour ?? this.fromhour,
+      tohour: tohour ?? this.tohour,
     );
   }
 }

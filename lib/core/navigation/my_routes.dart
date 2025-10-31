@@ -6,7 +6,7 @@ import 'package:se7ty/features/auth/presentation/register/pages/doctor_register_
 import 'package:se7ty/features/auth/presentation/register/pages/register_screen_doc.dart';
 import 'package:se7ty/features/home/pages/home_screen.dart';
 import 'package:se7ty/features/onboarding/pages/onboarding_screen.dart';
-import 'package:se7ty/features/profile/pages/profile_screen.dart';
+import 'package:se7ty/features/doctor/profile/pages/profile_screen.dart';
 import 'package:se7ty/features/splash/pages/splash_screen.dart';
 import 'package:se7ty/features/welcome/pages/welcome_screen.dart';
 
