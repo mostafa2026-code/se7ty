@@ -38,7 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           if (widget.type == UserType.Doctor) {
             pushreplace(context, MyRoutes.completedoctor, null);
           } else {
-            pushreplace(context, MyRoutes.home, null);
+            pushreplace(context, MyRoutes.mainPatient, null);
           }
         } else if (state is AuthFailure) {
           pop(context);

@@ -1,44 +1,33 @@
-// import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// import 'package:se7ty/features/auth/data/doctors_model.dart';
-// import 'package:se7ty/features/auth/data/patient_model.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+class SharedPref {
+  static SharedPreferences? _preferences;
 
-// class SharedPref {
-//   static const String token = 'token';
-//   late SharedPreferences sharedPref;
+  static const String _kIsONboardingSeen = "is_onboarding_seen";
 
-//   void init() {
-//     sharedPref = SharedPreferences.getInstance() as SharedPreferences;
-//   }
+  static Future init() async {
+    _preferences = await SharedPreferences.getInstance();
+  }
 
-//   void setDoctor(DoctorsModel model) async {
-//     Map<String, dynamic> doctorMap = model.toMap();
-//     String doctorString = jsonEncode(doctorMap);
-//     await ('doctor', doctorString);
-//   }
+  static Future setOnboardingSeen() async {
+    await _preferences?.setBool(_kIsONboardingSeen, true);
+  }
 
-//   void setPatient(PatientModel model) async {
-//     Map<String, dynamic> doctorMap = model.toMap();
-//     String doctorString = jsonEncode(doctorMap);
-//     await ('doctor', doctorString);
-//   }
+  static bool isOnboardingSeen() {
+    return _preferences?.getBool(_kIsONboardingSeen) ?? false;
+  }
 
-//   DoctorsModel? getDoctor() {
-//     String? doctorString = sharedPref.getString('doctor');
-//     if (doctorString != null) {
-//       Map<String, dynamic> doctorMap = jsonDecode(doctorString);
-//       return DoctorsModel.fromMap(doctorMap);
-//     }
-//     return null;
-//   }
 
-//   PatientModel? getPatient() {
-//     getString('doctor');
-//     if (doctorString != null) {
-//       Map<String, dynamic> doctorMap = jsonDecode(doctorString);
-//       return PatientModel.fromMap(doctorMap);
-//     }
-//     return null;
-//   }
-// }
+  static const isPatientKey = "is_patient";
+
+  static Future setUserType() async {
+    await _preferences?.setBool(isPatientKey, true);
+  }
+  static bool isPatient() {
+    return _preferences?.getBool(isPatientKey) ?? true;
+  }
+
+
+
+  
+}

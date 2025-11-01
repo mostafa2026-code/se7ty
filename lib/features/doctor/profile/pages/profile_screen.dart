@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:se7ty/core/navigation/my_navigation.dart';
+import 'package:se7ty/core/navigation/my_routes.dart';
+import 'package:se7ty/core/services/firebase/fire_helper.dart';
 import 'package:se7ty/core/utils/my_colors.dart';
 import 'package:se7ty/core/utils/my_image.dart';
 
@@ -9,7 +12,18 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("الحساب")),
+      appBar: AppBar(
+        title: Text("الحساب"),
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings, color: Colors.white),
+            onPressed: () {
+              push(context, MyRoutes.setting, null);
+            },
+          ),
+        ],
+      ),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -33,7 +47,8 @@ class ProfileScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "الدكتور البسة",
+                              FireHelper.auth.currentUser!.displayName ??
+                                  "اسم المستخدم",
                               style: TextStyle(
                                 color: MyColors.primary,
                                 fontSize: 20,

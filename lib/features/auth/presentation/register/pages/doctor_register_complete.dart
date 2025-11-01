@@ -40,7 +40,7 @@ class _DoctorRegisterCompleteState extends State<DoctorRegisterComplete> {
             ),
           }
         else if (state is AuthSuccess)
-          {goBase(context, MyRoutes.home, null)}
+          {goBase(context, MyRoutes.mainDoctor, null)}
         else if (state is AuthFailure)
           {
             ScaffoldMessenger.of(
@@ -335,7 +335,6 @@ class _DoctorRegisterCompleteState extends State<DoctorRegisterComplete> {
             title: "التالي",
             onPressed: () {
               if (formKey.currentState!.validate()) {
-               
                 authCubit.updateDoctorData(FireHelper.auth.currentUser!.uid);
               }
             },

@@ -4,9 +4,10 @@ import 'package:gap/gap.dart';
 import 'package:se7ty/component/main_bottom.dart';
 import 'package:se7ty/core/navigation/my_navigation.dart';
 import 'package:se7ty/core/navigation/my_routes.dart';
+import 'package:se7ty/core/services/shared/shared_pref.dart';
 import 'package:se7ty/core/utils/my_colors.dart';
 import 'package:se7ty/core/utils/my_image.dart';
-import 'package:se7ty/features/onboarding/data/onboarding_model.dart';
+import 'package:se7ty/features/shared%20features/onboarding/data/onboarding_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -19,10 +20,9 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   int currentIndex = 0;
 
-  PageController pageController = PageController(initialPage: 0);
-
   @override
   Widget build(BuildContext context) {
+    PageController pageController = PageController(initialPage: 0);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -32,21 +32,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 alignment: Alignment.topLeft,
                 child: TextButton(
                   onPressed: () {
+                    SharedPref.setOnboardingSeen();
+                    
                     pushreplace(context, MyRoutes.welcome, null);
                   },
                   child: Text("تخطي"),
                 ),
               ),
-
+            Spacer(flex: 1),
             Expanded(
               child: PageView.builder(
                 reverse: true,
                 physics: const BouncingScrollPhysics(),
 
                 onPageChanged: (value) {
-                  setState(() {
-                    currentIndex = value;
-                  });
+                  currentIndex = value;
                 },
                 controller: pageController,
                 itemCount: MyImage.onboeardingImages.length,
@@ -60,7 +60,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         child: SvgPicture.asset(
                           model.imagePath,
                           width: MediaQuery.of(context).size.width,
-                          fit: BoxFit.contain,
                         ),
                       ),
                       Gap(10),
@@ -80,8 +79,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 },
               ),
             ),
-            Gap(20),
-
+            Spacer(flex: 2),
             Padding(
               padding: const EdgeInsets.all(20),
               child: Row(
@@ -97,13 +95,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
                   Gap(10),
-                  // if (currentIndex == onboardingPages.length - 1)
-                  //   MainBottom(
-                  //     title: "هيا بنا",
-                  //     onPressed: () {},
-                  //     width: 50,
-                  //     height: 50,
-                  //   ),
+                  if (currentIndex == onboardingPages.length - 1)
+                    MainBottom(title: "هيا بنا", onPressed: () {}, width: 50),
                 ],
               ),
             ),

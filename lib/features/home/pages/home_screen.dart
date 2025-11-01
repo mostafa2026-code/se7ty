@@ -1,10 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:se7ty/core/services/shared/shared_pref.dart';
 import 'package:se7ty/core/utils/my_colors.dart';
 import 'package:se7ty/core/utils/my_image.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -39,18 +38,24 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        " مرحبا,",
-                        style: TextStyle(fontSize: 16, color: MyColors.black),
-                      ),
-                      Text(
-                       "mostafa",
-                        style: TextStyle(fontSize: 16, color: MyColors.primary),
-                      ),
-                    ],
+                  Text.rich(
+                    TextSpan(
+                      text: "مرحبا,",
+                      style: TextStyle(fontSize: 16, color: MyColors.black),
+                      children: [
+                        TextSpan(
+                          text:
+                              FirebaseAuth.instance.currentUser!.displayName ??
+                              "mostafa",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: MyColors.primary,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+
                   Gap(20),
                   Text(
                     "احجز الان و كن جزءا من رحلتك الصحية ",

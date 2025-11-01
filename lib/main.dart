@@ -8,14 +8,11 @@ import 'package:se7ty/core/navigation/my_routes.dart';
 import 'package:se7ty/core/services/shared/shared_pref.dart';
 import 'package:se7ty/firebase_options.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  // SharedPref().init();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await SharedPref.init();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
@@ -32,7 +29,7 @@ class Se7ty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // هنا المهم: نستخدم context.locale عشان يعمل rebuild
+    
 
     return MaterialApp.router(
       routerConfig: MyRoutes.myroutes,
@@ -42,7 +39,7 @@ class Se7ty extends StatelessWidget {
       // routerConfig: MyRoutes.myroutes,
       theme: MyThemes.mylightTheme(),
 
-      // نظبط الاتجاه هنا
+      
       builder: (context, router) {
         return Directionality(
           textDirection: isArabic(context)

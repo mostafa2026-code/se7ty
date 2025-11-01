@@ -6,6 +6,7 @@ import 'package:se7ty/core/enums/user_type.dart';
 import 'package:se7ty/core/functions/reg_exp.dart';
 import 'package:se7ty/core/navigation/my_navigation.dart';
 import 'package:se7ty/core/navigation/my_routes.dart';
+import 'package:se7ty/core/services/firebase/fire_helper.dart';
 import 'package:se7ty/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:se7ty/features/auth/presentation/cubit/auth_states.dart';
 
@@ -32,7 +33,13 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthCubit, AuthStates>(
       listener: (context, state) => {
         if (state is AuthSuccess)
-          {pop(context), pushreplace(context, MyRoutes.home, null)}
+          {
+            pop(context),
+            if (FireHelper.auth.currentUser!.photoURL == "patient")
+              {pushreplace(context, MyRoutes.mainPatient, null)},
+          }
+        else if (FireHelper.auth.currentUser!.photoURL == "doctor")
+          {pushreplace(context, MyRoutes.mainDoctor, null)}
         else if (state is AuthFailure)
           {
             pop(context),
