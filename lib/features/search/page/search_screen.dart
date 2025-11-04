@@ -24,13 +24,24 @@ class SearchScreen extends StatelessWidget {
                 suffixIcon: SizedBox(width: 20, child: Icon(Icons.search)),
               ),
             ),
-            Expanded(
-              child: Center(
-                child: SvgPicture.asset(MyImage.onsearch, height: 300),
-              ),
-            ),
+            OnSearchWIdget(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class OnSearchWIdget extends StatelessWidget {
+  const OnSearchWIdget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Center(
+        child: SvgPicture.asset(MyImage.onsearch, height: 300),
       ),
     );
   }

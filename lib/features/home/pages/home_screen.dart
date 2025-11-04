@@ -2,8 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:se7ty/core/navigation/my_navigation.dart';
+import 'package:se7ty/core/navigation/my_routes.dart';
+import 'package:se7ty/core/services/firebase/fire_helper.dart';
 import 'package:se7ty/core/utils/my_colors.dart';
 import 'package:se7ty/core/utils/my_image.dart';
+import 'package:se7ty/features/auth/data/doctors_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -113,43 +118,73 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
 
-                    child: ListView.separated(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 20,
-                      separatorBuilder: (BuildContext context, int index) {
-                        return Gap(10);
-                      },
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          height: 70,
-                          width: double.infinity,
-                          decoration: BoxDecoration(color: Color(0xffe6eef8)),
+                    child: FutureBuilder(
+                      future: FireStoreHelper.firestore
+                          .collection("doctors")
+                          .orderBy("rating", descending: true)
+                          .get(),
+                      builder: (context, asyncSnapshot) {
+                        if (asyncSnapshot.hasData) {
+                          return ListView.separated(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: asyncSnapshot.data!.docs.length,
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                                  return Gap(10);
+                                },
+                            itemBuilder: (BuildContext context, int index) {
+                              DoctorsModel model = DoctorsModel.fromJson(
+                                asyncSnapshot.data!.docs[index].data(),
+                              );
 
-                          child: ListTile(
-                            leading: SizedBox(
-                              width: 30,
-                              child: SvgPicture.asset(
-                                MyImage.onboarding1,
-                                height: double.infinity,
-                              ),
-                            ),
+                              return Container(
+                                height: 70,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color(0xffe6eef8),
+                                ),
 
-                            minTileHeight: 100,
-                            title: Text("مصطفى عبد الرحيم  ابراهيم "),
-                            subtitle: Text("طب النونات "),
-                            trailing: SizedBox(
-                              width: 50,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text("4"),
-                                  Icon(Icons.star, size: 20),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
+                                child: ListTile(
+                                  onTap: () {
+                                    push(
+                                      context,
+                                      MyRoutes.doctorProfileofPatient,
+                                      model,
+                                    );
+                                  },
+                                  leading: Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      
+                                    ),
+                                    child: Image.network(model.profileImage ??  "",fit: BoxFit.cover,),
+                                  )
+                                  ,
+
+                                  minTileHeight: 100,
+                                  title: Text(model.name ?? ""),
+                                  subtitle: Text(model.specialization ?? ""),
+                                  trailing: SizedBox(
+                                    width: 50,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(model.rating.toString()),
+                                        Icon(Icons.star, size: 20),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          return SizedBox();
+                        }
                       },
                     ),
                   ),

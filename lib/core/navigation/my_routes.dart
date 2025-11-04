@@ -1,11 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:se7ty/features/%D9%85%D9%88%D8%A7%D8%B9%D9%8A%D8%AF/pages/appoinment.dart';
+import 'package:se7ty/features/auth/data/doctors_model.dart';
 import 'package:se7ty/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:se7ty/features/auth/presentation/login/pages/login.dart';
 import 'package:se7ty/features/auth/presentation/register/pages/doctor_register_complete.dart';
 import 'package:se7ty/features/auth/presentation/register/pages/register_screen_doc.dart';
 import 'package:se7ty/features/doctor/main/main_screen_doctor.dart';
+import 'package:se7ty/features/doctorprofile/pages/doctore_profile_to_patient.dart';
 import 'package:se7ty/features/home/pages/home_screen.dart';
 import 'package:se7ty/features/home/pages/main_screen.dart';
 import 'package:se7ty/features/onboarding/pages/onboarding_screen.dart';
@@ -28,6 +30,7 @@ class MyRoutes {
   static const String setting = '/setting';
 
   static const String register = '/register';
+  static const String doctorProfileofPatient = '/doctorProfileofPatient';
   static const String profile = '/profile';
   static const String splash = '/';
   static const String welcome = '/welcome';
@@ -39,7 +42,10 @@ class MyRoutes {
     initialLocation: splash,
     routes: [
       GoRoute(path: splash, builder: (context, state) => const SplashScreen()),
-      GoRoute(path: setting, builder: (context, state) => const SettingScreen()),
+      GoRoute(
+        path: setting,
+        builder: (context, state) => const SettingScreen(),
+      ),
 
       GoRoute(
         path: mainPatient,
@@ -47,7 +53,7 @@ class MyRoutes {
       ),
       GoRoute(
         path: mainDoctor,
-        builder: (context, state) =>  MainScreenDoctor(),
+        builder: (context, state) => MainScreenDoctor(),
       ),
       GoRoute(
         path: profilePatient,
@@ -74,6 +80,11 @@ class MyRoutes {
       GoRoute(
         path: profile,
         builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: doctorProfileofPatient,
+        builder: (context, state) =>
+            DoctoreProfileToPatient(model: state.extra as DoctorsModel),
       ),
       GoRoute(
         path: login,
