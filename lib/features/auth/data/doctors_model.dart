@@ -2,130 +2,98 @@ class DoctorsModel {
   final String? name;
   final String? email;
   final String? password;
-  final String? phone;
+  final String? phone1;
+  final String? phone2;
   final String? id;
-  final String? age;
-  final String? gender;
-  final String? address;
+
   final String? profileImage;
   final String? specialization;
   final String? fromhour;
   final String? tohour;
-
   final String? about;
-  final String? degree;
-  final String? hospital;
   final String? location;
-  final String? fees;
-  final List<String>? certification;
-
-  const DoctorsModel({
-    required this.name,
-    required this.email,
-    required this.password,
-    this.phone,
-    required this.id,
-    this.age,
-    this.gender,
-    this.address,
+  final int? rating;
+  DoctorsModel({
+    this.name,
+    this.email,
+    this.password,
+    this.phone1,
+    this.phone2,
+    this.id,
     this.profileImage,
     this.specialization,
-    required this.about,
-    this.degree,
-    this.hospital,
-    required this.location,
-    this.fees,
-    this.certification,
-    required this.fromhour,
-    required this.tohour,
+    this.fromhour,
+    this.tohour,
+    this.about,
+    this.location,
+    this.rating,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'email': email,
-      'password': password,
-      'phone': phone,
-      'id': id,
-      'age': age,
-      'gender': gender,
-      'address': address,
-      'profileImage': profileImage,
-      'specialization': specialization,
-      'about': about,
-      'degree': degree,
-      'hospital': hospital,
-      'location': location,
-      'fees': fees,
-      'certification': certification,
-      'fromhour': fromhour,
-      'tohour': tohour,
-    };
-  }
+  DoctorsModel.fromJson(Map<String, dynamic> json)
+    : name = json['name'],
+      email = json['email'],
+      password = json['password'],
+      phone1 = json['phone1'],
+      phone2 = json['phone2'],
+      id = json['id'],
+      profileImage = json['profileImage'],
+      specialization = json['specialization'],
+      fromhour = json['fromhour'],
+      tohour = json['tohour'],
+      about = json['about'],
+      location = json['location'],
+      rating = json['rating'];
 
-  factory DoctorsModel.fromMap(Map<String, dynamic> map) {
-    return DoctorsModel(
-      name: map['name'],
-      email: map['email'],
-      password: map['password'],
-      phone: map['phone'],
-      id: map['id'],
-      age: map['age'],
-      gender: map['gender'],
-      address: map['address'],
-      profileImage: map['profileImage'],
-      specialization: map['specialization'],
-      about: map['about'],
-      degree: map['degree'],
-      hospital: map['hospital'],
-      location: map['location'],
-      fees: map['fees'],
-      certification: List<String>.from(map['certification']),
-      fromhour: map['fromhour'],
-      tohour: map['tohour'],
-    );
-  }
+  Map<String, dynamic> toMap() => {
+    'name': name,
+    'email': email,
+    'password': password,
+    'phone1': phone1,
+    'phone2': phone2,
+    'id': id,
+    'profileImage': profileImage,
+    'specialization': specialization,
+    'fromhour': fromhour,
+    'tohour': tohour,
+    'about': about,
+    'location': location,
+    'rating': rating,
+  };
 
   DoctorsModel copyWith({
     String? name,
     String? email,
     String? password,
-    String? phone,
+    String? phone1,
+    String? phone2,
     String? id,
-    String? age,
-    String? gender,
-    String? address,
+
     String? profileImage,
     String? specialization,
-    String? experience,
-    String? about,
+
     String? fromhour,
     String? tohour,
-    String? degree,
-    String? hospital,
+    String? about,
     String? location,
-    String? fees,
-    List<String>? certification,
+    int? rating,
   }) {
     return DoctorsModel(
       name: name ?? this.name,
       email: email ?? this.email,
       password: password ?? this.password,
-      phone: phone ?? this.phone,
+      phone1: phone1 ?? this.phone1,
+      phone2: phone2 ?? this.phone2,
       id: id ?? this.id,
-      age: age ?? this.age,
-      gender: gender ?? this.gender,
-      address: address ?? this.address,
+
       profileImage: profileImage ?? this.profileImage,
+
       specialization: specialization ?? this.specialization,
-      about: about ?? this.about,
-      degree: degree ?? this.degree,
-      hospital: hospital ?? this.hospital,
-      location: location ?? this.location,
-      fees: fees ?? this.fees,
-      certification: certification ?? this.certification,
+
       fromhour: fromhour ?? this.fromhour,
       tohour: tohour ?? this.tohour,
+      about: about ?? this.about,
+      location: location ?? this.location,
+      rating: rating ?? this.rating,
     );
   }
 }

@@ -1,16 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:se7ty/component/main_bottom.dart';
-import 'package:se7ty/core/enums/user_type.dart';
+
 import 'package:se7ty/core/navigation/my_navigation.dart';
 import 'package:se7ty/core/navigation/my_routes.dart';
 import 'package:se7ty/core/services/firebase/fire_helper.dart';
 import 'package:se7ty/core/utils/my_colors.dart';
 import 'package:intl/intl.dart';
+
 import 'package:image_picker/image_picker.dart';
-import 'package:se7ty/core/utils/my_image.dart';
+
 import 'package:se7ty/core/utils/my_styles.dart';
+import 'package:se7ty/features/auth/data/doctors_model.dart';
 import 'package:se7ty/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:se7ty/features/auth/presentation/cubit/auth_states.dart';
 
@@ -22,11 +25,25 @@ class DoctorRegisterComplete extends StatefulWidget {
 }
 
 class _DoctorRegisterCompleteState extends State<DoctorRegisterComplete> {
+  DoctorsModel? doctorModel;
+
+  @override
+  void initState() {
+    super.initState();
+    FireStoreHelper.getDoctorData(FireAuthHelper.auth.currentUser!.uid).then((
+      value,
+    ) {
+      doctorModel = value;
+    });
+  }
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final String uid = FirebaseAuth.instance.currentUser!.uid;
+  late dynamic imagepath;
   @override
   Widget build(BuildContext context) {
     ImagePicker picker = ImagePicker();
-    String? imagePath;
+
     final authCubit = context.read<AuthCubit>();
     return BlocListener<AuthCubit, AuthStates>(
       listener: (context, state) => {
@@ -76,57 +93,52 @@ class _DoctorRegisterCompleteState extends State<DoctorRegisterComplete> {
                                 "اختر صورة الملف الشخصي",
                                 style: MyStyles.n16primary(),
                               ),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
+                              content: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  ListTile(
-                                    leading: Icon(Icons.camera_alt),
-                                    title: Text("الكاميرا"),
-                                    onTap: () async {
-                                      final XFile? photo = await picker
-                                          .pickImage(
-                                            source: ImageSource.camera,
-                                          );
-                                      if (photo != null) {
-                                        setState(() {
-                                          imagePath = photo.path;
-                                        });
-
-                                        // authCubit.uploadImages(
-                                        //   imagePath ?? "",
-                                        //   FireHelper
-                                        //           .auth
-                                        //           .currentUser!
-                                        //           .displayName ??
-                                        //       "unKown User",
-                                        // );
-                                      }
-                                      Navigator.pop(context);
+                                  TextButton(
+                                    child: Text("الكاميرا"),
+                                    onPressed: () {
+                                      picker
+                                          .pickImage(source: ImageSource.camera)
+                                          .then((value) {
+                                            if (value != null) {
+                                              imagepath = authCubit
+                                                  .uploadImages(
+                                                    value.path,
+                                                    FirebaseAuth
+                                                        .instance
+                                                        .currentUser!
+                                                        .uid,
+                                                  );
+                                              Navigator.pop(context);
+                                              authCubit.imageurl = imagepath;
+                                            }
+                                          });
                                     },
                                   ),
-                                  ListTile(
-                                    leading: Icon(Icons.photo_library),
-                                    title: Text("معرض الصور"),
-                                    onTap: () async {
-                                      final XFile? image = await picker
+                                  TextButton(
+                                    child: Text("المعرض"),
+                                    onPressed: () {
+                                      picker
                                           .pickImage(
                                             source: ImageSource.gallery,
-                                          );
-                                      if (image != null) {
-                                        setState(() {
-                                          imagePath = image.path;
-                                        });
-                                        imagePath = image.path;
-                                        // authCubit.uploadImages(
-                                        //   imagePath ?? "",
-                                        //   FireHelper
-                                        //           .auth
-                                        //           .currentUser!
-                                        //           .displayName ??
-                                        //       "unKown User",
-                                        // );
-                                      }
-                                      Navigator.pop(context);
+                                          )
+                                          .then((value) {
+                                            if (value != null) {
+                                              imagepath = authCubit
+                                                  .uploadImages(
+                                                    value.path,
+                                                    FirebaseAuth
+                                                        .instance
+                                                        .currentUser!
+                                                        .uid,
+                                                  );
+                                              Navigator.pop(context);
+                                              authCubit.imageurl = imagepath;
+                                            }
+                                          });
                                     },
                                   ),
                                 ],
@@ -138,7 +150,9 @@ class _DoctorRegisterCompleteState extends State<DoctorRegisterComplete> {
                           children: [
                             CircleAvatar(
                               radius: 80,
-                              backgroundImage: AssetImage(MyImage.doc),
+                              backgroundImage:
+                                  NetworkImage(authCubit.imageurl ?? "") ??
+                                  AssetImage("assets/images/doctor.png"),
                             ),
                             Positioned(
                               bottom: 10,
@@ -335,7 +349,7 @@ class _DoctorRegisterCompleteState extends State<DoctorRegisterComplete> {
             title: "التالي",
             onPressed: () {
               if (formKey.currentState!.validate()) {
-                authCubit.updateDoctorData(FireHelper.auth.currentUser!.uid);
+                authCubit.updateDoctordata(doctorModel);
               }
             },
           ),

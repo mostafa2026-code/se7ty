@@ -47,8 +47,7 @@ class ProfileScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              FireHelper.auth.currentUser!.displayName ??
-                                  "اسم المستخدم",
+                              FireAuthHelper.getUsername().toString(),
                               style: TextStyle(
                                 color: MyColors.primary,
                                 fontSize: 20,

@@ -54,90 +54,93 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
       },
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(8),
-            child: Form(
-              key: cubit.regKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(child: LogoImage()),
-                  Gap(15),
-                  Text(
-                    "سجل حساب جديد ك ${widget.type == UserType.Doctor ? "طبيب" : "مريض"}",
-                  ),
-                  TextFormField(
-                    controller: cubit.nameRegController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الرجاء ادخال الاسم ';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: "الاسم ",
-                      suffix: Icon(Icons.person),
+        body: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Form(
+                key: cubit.regKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(child: LogoImage()),
+                    Gap(15),
+                    Text(
+                      "سجل حساب جديد ك ${widget.type == UserType.Doctor ? "طبيب" : "مريض"}",
                     ),
-                  ),
-                  Gap(10),
-                  TextFormField(
-                    controller: cubit.emailregController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الرجاء ادخال الايميل ';
-                      } else if (MyRegExp.isValidEmail(value) == false) {
-                        return 'الرجاء ادخال ايميل صحيح ';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: "الايميل ",
-                      suffix: Icon(Icons.mail),
-                    ),
-                  ),
-                  Gap(10),
-                  TextFormField(
-                    controller: cubit.passwordRegController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'الرجاء ادخال كلمة المرور ';
-                      } else if (value.length < 6) {
-                        return 'كلمة المرور يجب ان تكون اكثر من 6 احرف ';
-                      }
-                      return null;
-                    },
-                    maxLines: 1,
-                    obscureText: isObsecure,
-                    decoration: InputDecoration(
-                      hintText: "كلمة المرور ",
-                      suffix: Icon(
-                        isObsecure ? Icons.visibility_off : Icons.visibility,
+                    Gap(15),
+                    TextFormField(
+                      controller: cubit.nameRegController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'الرجاء ادخال الاسم ';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        hintText: "الاسم ",
+                        suffix: Icon(Icons.person),
                       ),
                     ),
-                  ),
-                  Gap(15),
-                  MainBottom(
-                    title: "تسجيل حساب ",
-                    onPressed: () {
-                      cubit.register(widget.type);
-                    },
-                  ),
-                  Gap(15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("لدي حساب ؟"),
-                      TextButton(
-                        onPressed: () {
-                          pushreplace(context, MyRoutes.login, widget.type);
-                        },
-                        child: Text("سجل الدخول"),
+                    Gap(10),
+                    TextFormField(
+                      controller: cubit.emailregController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'الرجاء ادخال الايميل ';
+                        } else if (MyRegExp.isValidEmail(value) == false) {
+                          return 'الرجاء ادخال ايميل صحيح ';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        hintText: "الايميل ",
+                        suffix: Icon(Icons.mail),
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    Gap(10),
+                    TextFormField(
+                      controller: cubit.passwordRegController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'الرجاء ادخال كلمة المرور ';
+                        } else if (value.length < 6) {
+                          return 'كلمة المرور يجب ان تكون اكثر من 6 احرف ';
+                        }
+                        return null;
+                      },
+                      maxLines: 1,
+                      obscureText: isObsecure,
+                      decoration: InputDecoration(
+                        hintText: "كلمة المرور ",
+                        suffix: Icon(
+                          isObsecure ? Icons.visibility_off : Icons.visibility,
+                        ),
+                      ),
+                    ),
+                    Gap(15),
+                    MainBottom(
+                      title: "تسجيل حساب ",
+                      onPressed: () {
+                        cubit.register(widget.type);
+                      },
+                    ),
+                    Gap(15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("لدي حساب ؟"),
+                        TextButton(
+                          onPressed: () {
+                            pushreplace(context, MyRoutes.login, widget.type);
+                          },
+                          child: Text("سجل الدخول"),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

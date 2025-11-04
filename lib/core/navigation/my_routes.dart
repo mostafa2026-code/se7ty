@@ -47,7 +47,7 @@ class MyRoutes {
       ),
       GoRoute(
         path: mainDoctor,
-        builder: (context, state) => const MainScreenDoctor(),
+        builder: (context, state) =>  MainScreenDoctor(),
       ),
       GoRoute(
         path: profilePatient,

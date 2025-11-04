@@ -26,6 +26,7 @@ class AuthCubit extends Cubit<AuthStates> {
   final TextEditingController aboutController = TextEditingController();
   final TextEditingController feesController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+  String? imageurl;
 
   String? selectedStartTime;
   String? selectedendTime;
@@ -34,38 +35,70 @@ class AuthCubit extends Cubit<AuthStates> {
 
   final GlobalKey<FormState> regKey = GlobalKey<FormState>();
 
+  void updateDoctordata(DoctorsModel? doctorModel) async {
+    try {
+      emit(AuthLoading());
+
+      if (doctorModel == null) {
+        emit(AuthFailure("No doctor data to update"));
+        return;
+      }
+
+      final updatedDoctor = doctorModel.copyWith(
+        specialization: specialization,
+        fromhour: selectedStartTime,
+        tohour: selectedendTime,
+        about: aboutController.text,
+        location: locationController.text,
+        phone1: phoneDoctoregController.text,
+        phone2: phoneDoctoreg1Controller.text,
+        profileImage: imageurl,
+      );
+
+      await FireStoreHelper.updateDoctorData(updatedDoctor, updatedDoctor.id!);
+      doctorModel = updatedDoctor;
+
+      emit(AuthSuccess());
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
+  }
+
   void register(Enum type) async {
     try {
       if (regKey.currentState!.validate()) {
         emit(AuthLoading());
-        UserCredential userCredential = await FireHelper.auth
-            .createUserWithEmailAndPassword(
-              email: emailregController.text.trim(),
-              password: passwordRegController.text.trim(),
-            );
+        UserCredential userCredential = await FireAuthHelper.register(
+          emailregController.text,
+          passwordRegController.text,
+        );
+
         if (userCredential.user != null) {
-          emit(AuthSuccess());
           if (type == UserType.Doctor) {
-            FireHelper.saveToFirestoreDoctoe(
-              DoctorsModel(
-                name: nameRegController.text,
-                email: emailregController.text,
-                password: passwordRegController.text,
-                id: userCredential.user!.uid,
-                about: '',
-                location: '',
-                fromhour: '',
-                tohour: '',
-              ),
+            final DoctorsModel doctorModel = DoctorsModel(
+              name: nameRegController.text,
+              email: emailregController.text,
+              password: passwordRegController.text,
+              id: userCredential.user!.uid,
+              phone1: phoneDoctoregController.text,
+              phone2: phoneDoctoreg1Controller.text,
+              specialization: specialization,
+              fromhour: selectedStartTime,
+              tohour: selectedendTime,
+              about: aboutController.text,
+              location: locationController.text,
+            );
+            FireStoreHelper.saveToFirestoreDoctor(
+              doctorModel,
               userCredential.user!.uid,
             );
             emit(AuthSuccess());
           } else if (type == UserType.Patient) {
-            FireHelper.saveToFirestorePatient(
+            FireStoreHelper.saveToFirestorePatient(
               PatientModel(
                 name: nameRegController.text,
                 email: emailregController.text,
-                password: '',
+                password: passwordRegController.text,
                 id: userCredential.user!.uid,
               ),
               userCredential.user!.uid,
@@ -73,7 +106,7 @@ class AuthCubit extends Cubit<AuthStates> {
             emit(AuthSuccess());
           }
         } else
-          emit(AuthFailure("error"));
+          emit(AuthFailure("An unknown error occurred"));
       }
     } on FirebaseAuthException catch (e) {
       emit(AuthFailure(e.message ?? "An unknown error occurred"));
@@ -86,48 +119,19 @@ class AuthCubit extends Cubit<AuthStates> {
     try {
       if (logKey.currentState!.validate()) {
         emit(AuthLoading());
-        UserCredential userCredential = await FireHelper.auth
-            .signInWithEmailAndPassword(
-              email: emaillogController.text.trim(),
-              password: passwordLogController.text.trim(),
-            );
+        UserCredential userCredential = await FireAuthHelper.login(
+          emaillogController.text,
+          passwordLogController.text,
+        );
         if (userCredential.user != null)
           if (type == UserType.Doctor) {
             userCredential.user!.updatePhotoURL("doctor");
-            FireHelper.saveToFirestoreDoctoe(
-              DoctorsModel(
-                name: nameRegController.text,
-                email: emaillogController.text,
-                password: passwordLogController.text,
-                id: userCredential.user!.uid,
-                about: '',
-                location: '',
-                fromhour: '',
-                tohour: '',
-              ),
-              userCredential.user!.uid,
-            );
+
             emit(AuthSuccess(type: "doctor"));
           } else if (type == UserType.Patient) {
             userCredential.user!.updatePhotoURL("doctor");
-            FireHelper.saveToFirestorePatient(
-              PatientModel(
-                name: nameRegController.text,
-                email: emaillogController.text,
-                password: passwordLogController.text,
-                id: userCredential.user!.uid,
-              ),
-              userCredential.user!.uid,
-            );
+
             emit(AuthSuccess(type: "patient"));
-            // SharedPref().setPatient(
-            //   PatientModel(
-            //     name: nameRegController.text,
-            //     email: emaillogController.text,
-            //     password: passwordLogController.text,
-            //     id: userCredential.user!.uid,
-            //   ),
-            // );
           } else
             emit(AuthFailure("error"));
       }
@@ -138,50 +142,30 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
-  Future<void> uploadImages(String imagePath, String name) async {
+  Future<String?> uploadImages(String imagePath, String name) async {
     try {
+      final String cloudName = "djxelnufi";
+      final String presetName = "ml_default";
       Dio dio = Dio();
       var formData = FormData.fromMap({
         'file': await MultipartFile.fromFile(imagePath, filename: name),
+        'upload_preset': presetName,
       });
-      dio.post(
-        "CLOUDINARY_URL=cloudinary://<your_api_key>:<your_api_secret>@djxelnufi",
+
+      final response = await dio.post(
+        "https://api.cloudinary.com/v1_1/$cloudName/image/upload",
         data: formData,
       );
+      if (response.statusCode == 200) {
+        imageurl = response.data['secure_url'];
+        return imageurl;
+
+      }
     } on Exception catch (e) {
       emit(AuthFailure(e.toString()));
     }
+    return null;
   }
 
-  Future<void> updateDoctorData(String uid) async {
-    try {
-      emit(AuthLoading());
-      FireHelper.updateFirestoreDoctoe(
-        DoctorsModel(
-          name: nameRegController.text,
-          email: emailregController.text,
-          password: passwordRegController.text,
-          id: uid,
-          specialization: specialization ?? '',
-          degree: degreeController.text,
-          hospital: hospitalController.text,
-          location: locationController.text,
-          fees: feesController.text,
-          certification: [],
-          about: aboutController.text,
-          phone: phoneDoctoregController.text,
-          age: '',
-          gender: '',
-          address: '',
-          profileImage: '',
-          fromhour: selectedStartTime,
-          tohour: selectedendTime,
-        ),
-        uid,
-      );
-      emit(AuthSuccess());
-    } catch (e) {
-      emit(AuthFailure(e.toString()));
-    }
-  }
+ 
 }

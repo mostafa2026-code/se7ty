@@ -35,10 +35,10 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is AuthSuccess)
           {
             pop(context),
-            if (FireHelper.auth.currentUser!.photoURL == "patient")
+            if (FireAuthHelper.auth.currentUser!.photoURL == "patient")
               {pushreplace(context, MyRoutes.mainPatient, null)},
           }
-        else if (FireHelper.auth.currentUser!.photoURL == "doctor")
+        else if (FireAuthHelper.auth.currentUser!.photoURL == "doctor")
           {pushreplace(context, MyRoutes.mainDoctor, null)}
         else if (state is AuthFailure)
           {
