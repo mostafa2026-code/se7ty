@@ -12,6 +12,7 @@ import 'package:se7ty/features/home/pages/home_screen.dart';
 import 'package:se7ty/features/home/pages/main_screen.dart';
 import 'package:se7ty/features/onboarding/pages/onboarding_screen.dart';
 import 'package:se7ty/features/doctor/profile/pages/profile_screen.dart';
+import 'package:se7ty/features/search/page/search_by_speciality.dart';
 import 'package:se7ty/features/search/page/search_screen.dart';
 import 'package:se7ty/features/setting/pages/setting_screen.dart';
 import 'package:se7ty/features/shared%20features/splash/pages/splash_screen.dart';
@@ -38,6 +39,7 @@ class MyRoutes {
   static const String terms = '/terms';
   static const String privacy = '/privacy';
   static const String completedoctor = '/completedoctor';
+  static const String searchBySpeciality = '/searchBySpeciality';
   static final GoRouter myroutes = GoRouter(
     initialLocation: splash,
     routes: [
@@ -86,6 +88,11 @@ class MyRoutes {
         builder: (context, state) =>
             DoctoreProfileToPatient(model: state.extra as DoctorsModel),
       ),
+      GoRoute(
+        path: searchBySpeciality,
+        builder: (context, state) =>  SearchBySpeciality(speciality: state.extra as String,),
+      ),
+
       GoRoute(
         path: login,
         builder: (context, state) => BlocProvider(
