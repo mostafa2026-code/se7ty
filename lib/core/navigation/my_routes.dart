@@ -90,7 +90,8 @@ class MyRoutes {
       ),
       GoRoute(
         path: searchBySpeciality,
-        builder: (context, state) =>  SearchBySpeciality(speciality: state.extra as String,),
+        builder: (context, state) =>
+            SearchBySpeciality(speciality: state.extra as String),
       ),
 
       GoRoute(

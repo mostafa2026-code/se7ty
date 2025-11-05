@@ -54,7 +54,10 @@ class _SearchBySpecialityState extends State<SearchBySpeciality> {
                 textInputAction: TextInputAction.search,
 
                 onFieldSubmitted: (value) {
-                  FireStoreHelper.getDoctorByName(value, widget.speciality);
+                  FireStoreHelper.getDoctorByNameAndSpecilaity(
+                    value,
+                    widget.speciality,
+                  );
                 },
 
                 decoration: InputDecoration(
@@ -72,7 +75,7 @@ class _SearchBySpecialityState extends State<SearchBySpeciality> {
             if (searchText.isEmpty) AllDoctorInSpeciality(widget: widget),
             if (searchText.isNotEmpty)
               FutureBuilder(
-                future: FireStoreHelper.getDoctorByName(
+                future: FireStoreHelper.getDoctorByNameAndSpecilaity(
                   searchText,
                   widget.speciality,
                 ),

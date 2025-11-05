@@ -73,13 +73,30 @@ class FireStoreHelper {
     return null;
   }
 
-  static Future<QuerySnapshot<Map<String, dynamic>>> getDoctorByName(
-    String name,
-    String specialization,
-  ) async {
+  static Future<QuerySnapshot<Map<String, dynamic>>> getDoctors() async {
+    var doctors = await firestore.collection('doctors').get();
+    return doctors;
+  }
+
+  static Future<QuerySnapshot<Map<String, dynamic>>>
+  getDoctorByNameAndSpecilaity(String name, String specialization) async {
     var searchResult = await firestore
         .collection('doctors')
         .where('specialization', isEqualTo: specialization)
+        .orderBy("name")
+        .startAt([name])
+        .endAt([name + '\uf8ff'])
+        .get();
+
+    return searchResult;
+  }
+
+  static Future<QuerySnapshot<Map<String, dynamic>>> getDoctorByName(
+    String name,
+
+  ) async {
+    var searchResult = await firestore
+        .collection('doctors')
         .orderBy("name")
         .startAt([name])
         .endAt([name + '\uf8ff'])

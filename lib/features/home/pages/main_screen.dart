@@ -17,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
   List<Widget> pagesPateint = [
     const HomeScreen(),
-    const SearchScreen(),
+     SearchScreen(),
     const AppointmentScreen(),
     const ProfileScreen(),
   ];
