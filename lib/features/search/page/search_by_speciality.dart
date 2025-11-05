@@ -3,11 +3,19 @@ import 'package:gap/gap.dart';
 import 'package:se7ty/core/services/firebase/fire_helper.dart';
 import 'package:se7ty/core/utils/my_colors.dart';
 import 'package:se7ty/features/auth/data/doctors_model.dart';
+import 'package:se7ty/features/auth/presentation/register/pages/doctor_register_complete.dart';
 import 'package:se7ty/features/home/pages/home_screen.dart';
 
-class SearchBySpeciality extends StatelessWidget {
+class SearchBySpeciality extends StatefulWidget {
   const SearchBySpeciality({super.key, required this.speciality});
   final String speciality;
+
+  @override
+  State<SearchBySpeciality> createState() => _SearchBySpecialityState();
+}
+
+class _SearchBySpecialityState extends State<SearchBySpeciality> {
+  String searchText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +24,7 @@ class SearchBySpeciality extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: MyColors.primary,
         title: Text(
-          speciality,
+          widget.speciality,
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
         centerTitle: true,
@@ -37,8 +45,18 @@ class SearchBySpeciality extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const TextField(
-                textAlign: TextAlign.right,
+              child: TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    searchText = value;
+                  });
+                },
+                textInputAction: TextInputAction.search,
+
+                onFieldSubmitted: (value) {
+                  FireStoreHelper.getDoctorByName(value, widget.speciality);
+                },
+
                 decoration: InputDecoration(
                   hintText: "البحث",
                   prefixIcon: Icon(Icons.search, color: MyColors.primary),
@@ -51,30 +69,61 @@ class SearchBySpeciality extends StatelessWidget {
               ),
             ),
             const Gap(20),
-
-            FutureBuilder(
-              future: FireStoreHelper.firestore
-                  .collection(FireStoreHelper.doctorKey)
-                  .orderBy("rating")
-                  .where("specialization", isEqualTo: speciality)
-                  .get(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasData &&
-                    snapshot.data!.docs.isNotEmpty) {
-                  final doctors = snapshot.data!.docs
-                      .map((e) => DoctorsModel.fromJson(e.data()))
-                      .toList();
-                  return DoctorsListView(doctors: doctors);
-                } else {
-                  return const Center(child: Text("لا يوجد أطباء لعرضهم الآن"));
-                }
-              }
-            ),
+            if (searchText.isEmpty) AllDoctorInSpeciality(widget: widget),
+            if (searchText.isNotEmpty)
+              FutureBuilder(
+                future: FireStoreHelper.getDoctorByName(
+                  searchText,
+                  widget.speciality,
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasData &&
+                      snapshot.data!.docs.isNotEmpty) {
+                    final doctors = snapshot.data!.docs
+                        .map((e) => DoctorsModel.fromJson(e.data()))
+                        .toList();
+                    return DoctorsListView(doctors: doctors);
+                  } else {
+                    return const Center(
+                      child: Text("لا يوجد أطباء لعرضهم الآن"),
+                    );
+                  }
+                },
+              ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class AllDoctorInSpeciality extends StatelessWidget {
+  const AllDoctorInSpeciality({super.key, required this.widget});
+
+  final SearchBySpeciality widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: FireStoreHelper.firestore
+          .collection(FireStoreHelper.doctorKey)
+          .orderBy("rating")
+          .where("specialization", isEqualTo: widget.speciality)
+          .get(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+          final doctors = snapshot.data!.docs
+              .map((e) => DoctorsModel.fromJson(e.data()))
+              .toList();
+          return DoctorsListView(doctors: doctors);
+        } else {
+          return const Center(child: Text("لا يوجد أطباء لعرضهم الآن"));
+        }
+      },
     );
   }
 }

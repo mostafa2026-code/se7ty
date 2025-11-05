@@ -73,11 +73,24 @@ class FireStoreHelper {
     return null;
   }
 
+  static Future<QuerySnapshot<Map<String, dynamic>>> getDoctorByName(
+    String name,
+    String specialization,
+  ) async {
+    var searchResult = await firestore
+        .collection('doctors')
+        .where('specialization', isEqualTo: specialization)
+        .orderBy("name")
+        .startAt([name])
+        .endAt([name + '\uf8ff'])
+        .get();
+
+    return searchResult;
+  }
+
   Future<void> loadDoctorData(DoctorsModel? doctorModel) async {
     doctorModel = await FireStoreHelper.getDoctorData(
       FireAuthHelper.auth.currentUser!.uid,
     );
   }
-
-  
 }
