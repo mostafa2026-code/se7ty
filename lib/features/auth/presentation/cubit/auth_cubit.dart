@@ -103,6 +103,9 @@ class AuthCubit extends Cubit<AuthStates> {
               ),
               userCredential.user!.uid,
             );
+            await userCredential.user!.updateDisplayName(
+              nameRegController.text,
+            );
             emit(AuthSuccess());
           }
         } else
@@ -159,13 +162,10 @@ class AuthCubit extends Cubit<AuthStates> {
       if (response.statusCode == 200) {
         imageurl = response.data['secure_url'];
         return imageurl;
-
       }
     } on Exception catch (e) {
       emit(AuthFailure(e.toString()));
     }
     return null;
   }
-
- 
 }

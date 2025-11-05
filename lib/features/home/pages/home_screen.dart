@@ -54,9 +54,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       children: [
                         TextSpan(
-                          text:
-                              FirebaseAuth.instance.currentUser!.displayName ??
-                              "mostafa",
+                          text: FireAuthHelper.getUserName().toString(),
                           style: const TextStyle(
                             fontSize: 16,
                             color: MyColors.primary,

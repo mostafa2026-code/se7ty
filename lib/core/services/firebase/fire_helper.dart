@@ -23,7 +23,7 @@ class FireAuthHelper {
     auth.signOut();
   }
 
-  static Future<String?> getUsername() async {
+  static String getUserName() {
     return auth.currentUser!.displayName.toString();
   }
 }
@@ -93,7 +93,6 @@ class FireStoreHelper {
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getDoctorByName(
     String name,
-
   ) async {
     var searchResult = await firestore
         .collection('doctors')

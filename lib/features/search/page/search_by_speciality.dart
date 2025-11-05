@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:se7ty/core/services/firebase/fire_helper.dart';
 import 'package:se7ty/core/utils/my_colors.dart';
 import 'package:se7ty/features/auth/data/doctors_model.dart';
-import 'package:se7ty/features/auth/presentation/register/pages/doctor_register_complete.dart';
+
 import 'package:se7ty/features/home/pages/home_screen.dart';
 
 class SearchBySpeciality extends StatefulWidget {
